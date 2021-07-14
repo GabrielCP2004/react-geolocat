@@ -1,13 +1,13 @@
-import 'react-native-gesture-handler';
+import React from 'react';
+import { View } from 'react-native';
 import ReactNativeForegroundService from "@supersami/rn-foreground-service";
 import { registerRootComponent } from 'expo';
 
-import App from './App';
-
 ReactNativeForegroundService.register();
-ReactNativeForegroundService.start({
-  id: 144,
-  title: "Foreground Service",
-  message: "you are online!",
-});
+class App extends React.Component {
+  render() {
+    return <View />;
+  }
+}
+
 registerRootComponent(App);

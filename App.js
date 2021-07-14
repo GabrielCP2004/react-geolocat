@@ -1,8 +1,8 @@
 import React from 'react';
 import { SafeAreaView, View } from 'react-native';
-import RootScreen from './android/app/src/RootScreen'
+import RootScreen from './src/RootScreen'
 
-export default function App() {
+const App = () => {
   return (
     <SafeAreaView>
       <View>
@@ -10,4 +10,6 @@ export default function App() {
       </View>
     </SafeAreaView>
   );
-}
+} 
+
+export default App

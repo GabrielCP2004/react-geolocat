@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 
 import { PermissionsAndroid } from 'react-native'
 import RNLocation from 'react-native-location';
-import ReactNativeForegroundService from '@supersami/rn-foreground-service';
+import ReactNativeForegroundService from "@supersami/rn-foreground-service";
 
 RNLocation.configure({
   distanceFilter: 100, // Meters
@@ -16,12 +16,12 @@ RNLocation.configure({
   fastestInterval: 10000, // Milliseconds
   maxWaitTime: 5000, // Milliseconds
   // iOS Only
-  // activityType: 'other',
-  // allowsBackgroundLocationUpdates: false,
-  // headingFilter: 1, // Degrees
-  // headingOrientation: 'portrait',
-  // pausesLocationUpdatesAutomatically: false,
-  // showsBackgroundLocationIndicator: false,
+  activityType: 'other',
+  allowsBackgroundLocationUpdates: false,
+  headingFilter: 1, // Degrees
+  headingOrientation: 'portrait',
+  pausesLocationUpdatesAutomatically: false,
+  showsBackgroundLocationIndicator: false,
 });
 let locationSubscription = null;
 let locationTimeout = null;
@@ -29,6 +29,7 @@ let locationTimeout = null;
 export default function RootScreen () {
 
   useEffect(() => {
+    console.log('Foi')
     const requestPremission = async () => {
       const backgroundgranted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION,
@@ -48,6 +49,7 @@ export default function RootScreen () {
         ReactNativeForegroundService.add_task(
           () => {
             RNLocation.requestPermission({
+              ios: 'whenInUse',
               android: {
                 detail: 'fine',
               },
@@ -77,6 +79,12 @@ export default function RootScreen () {
             onError: (e) => console.log('Error logging:', e),
           },
         );
+
+        ReactNativeForegroundService.start({
+          id: 144,
+          title: "Foreground Service",
+          message: "you are online!",
+        })
       }
     }
     requestPremission();
